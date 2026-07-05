@@ -17,12 +17,19 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::all();
+        $roles = \Spatie\Permission\Models\Role::all();
         return view('users.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'role' => 'required'
+        ]);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
