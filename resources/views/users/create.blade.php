@@ -36,6 +36,29 @@
                 @endforeach
             </select>
         </div>
+        <div class="mb-3">
+            <label>Permissões</label>
+
+            @foreach($permissions as $permission)
+
+                <div class="form-check">
+
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="permissions[]"
+                        value="{{ $permission->name }}"
+                        id="perm{{ $permission->id }}">
+
+                    <label class="form-check-label" for="perm{{ $permission->id }}">
+                        {{ $permission->name }}
+                    </label>
+
+                </div>
+
+            @endforeach
+
+        </div>
 
         <button class="btn btn-success">Salvar</button>
         <a href="{{ url('/usuarios') }}" class="btn btn-secondary">Voltar</a>

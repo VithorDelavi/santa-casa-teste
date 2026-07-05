@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -18,7 +19,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = \Spatie\Permission\Models\Role::all();
-        return view('users.create', compact('roles'));
+        $permissions = Permission::all();
+        return view('users.create', compact('roles', 'permissions'));
     }
 
     public function store(Request $request)
@@ -27,7 +29,8 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'role' => 'required'
+            'role' => 'required',
+            'permissions' => 'nullable|array'
         ]);
 
         $user = User::create([
@@ -38,13 +41,17 @@ class UserController extends Controller
 
         $user->assignRole($request->role);
 
+        $user->syncPermissions($request->permissions ?? []);
+
         return redirect('/usuarios');
     }
 
     public function edit(User $usuario)
     {
-        $roles = \Spatie\Permission\Models\Role::all();
-        return view('users.edit', compact('usuario', 'roles'));
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('users.edit', compact('usuario', 'roles', 'permissions'));
     }
 
     public function update(Request $request, User $usuario)
@@ -67,6 +74,8 @@ class UserController extends Controller
         }
 
         $usuario->syncRoles([$request->role]);
+
+        $usuario->syncPermissions($request->permissions ?? []);
 
         return redirect('/usuarios');
     }

@@ -28,11 +28,11 @@ Route::middleware(['auth', 'role:Administrador'])->group(function () {
 });
 */
 Route::middleware(['auth', 'role:Administrador'])->group(function () {
-    Route::resource('/usuarios', UserController::class);//CRUD usuarios
+    Route::resource('/usuarios', UserController::class); //CRUD usuarios
     Route::resource('permissoes', PermissionController::class)
-    ->parameters([
-        'permissoes' => 'permission'
-    ]);//CRUD Permissões
+        ->parameters([
+            'permissoes' => 'permission'
+        ]); //CRUD Permissões
 
     Route::get('/setores-hospitalares', function () {
         return view('modules.setores');
@@ -49,9 +49,31 @@ Route::middleware(['auth', 'role:Administrador'])->group(function () {
     Route::get('/unidades-assistenciais', function () {
         return view('modules.unidades');
     });
+});
 
+Route::middleware(['auth', 'permission:acessar setores hospitalares'])->group(function () {
+    Route::get('/setores-hospitalares', function () {
+        return view('modules.setores');
+    });
+});
+
+Route::middleware(['auth', 'permission:acessar especialidades médicas'])->group(function () {
+    Route::get('/especialidades-medicas', function () {
+        return view('modules.especialidades');
+    });
+});
+
+Route::middleware(['auth', 'permission:acessar equipamentos'])->group(function () {
+    Route::get('/equipamentos', function () {
+        return view('modules.equipamentos');
+    });
+});
+
+Route::middleware(['auth', 'permission:acessar unidades assistenciais'])->group(function () {
+    Route::get('/unidades-assistenciais', function () {
+        return view('modules.unidades');
+    });
 });
 
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
