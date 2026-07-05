@@ -43,12 +43,18 @@ class UserController extends Controller
 
     public function edit(User $usuario)
     {
-        $roles = Role::all();
+        $roles = \Spatie\Permission\Models\Role::all();
         return view('users.edit', compact('usuario', 'roles'));
     }
 
     public function update(Request $request, User $usuario)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'role' => 'required'
+        ]);
+
         $usuario->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -56,8 +62,8 @@ class UserController extends Controller
 
         if ($request->password) {
             $usuario->update([
-                'password' => Hash::make($request->password),
-            ]);
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+          ]);
         }
 
         $usuario->syncRoles([$request->role]);
