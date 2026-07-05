@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,7 +28,30 @@ Route::middleware(['auth', 'role:Administrador'])->group(function () {
 });
 */
 Route::middleware(['auth', 'role:Administrador'])->group(function () {
-    Route::resource('/usuarios', UserController::class);
+    Route::resource('/usuarios', UserController::class);//CRUD usuarios
+    Route::resource('permissoes', PermissionController::class)
+    ->parameters([
+        'permissoes' => 'permission'
+    ]);//CRUD Permissões
+
+    Route::get('/setores-hospitalares', function () {
+        return view('modules.setores');
+    });
+
+    Route::get('/especialidades-medicas', function () {
+        return view('modules.especialidades');
+    });
+
+    Route::get('/equipamentos', function () {
+        return view('modules.equipamentos');
+    });
+
+    Route::get('/unidades-assistenciais', function () {
+        return view('modules.unidades');
+    });
+
 });
+
+
 
 require __DIR__.'/auth.php';
