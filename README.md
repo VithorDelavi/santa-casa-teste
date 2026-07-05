@@ -1,58 +1,136 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Controle de Acesso - Santa Casa
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este projeto foi desenvolvido como teste prático para vaga de Desenvolvedor de Sistemas Júnior (Laravel).
 
-## About Laravel
+## 📌 Descrição
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O sistema permite o gerenciamento de usuários e controle de acesso baseado em perfis e permissões, centralizando a administração de acessos aos módulos internos da instituição.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Tecnologias utilizadas
 
-## Learning Laravel
+- Laravel 12
+- PHP 8.3
+- MySQL
+- Bootstrap 5
+- Laravel Breeze (autenticação)
+- Spatie Laravel Permission
+- Laragon
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🔐 Autenticação
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+O sistema utiliza autenticação padrão do Laravel Breeze com e-mail e senha.
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 👤 Perfis de usuário
+
+### Administrador
+- Gerencia usuários
+- Gerencia permissões
+- Não acessa módulos operacionais
+
+### Colaborador
+- Pode acessar módulos conforme permissões atribuídas:
+  - Setores Hospitalares
+  - Especialidades Médicas
+  - Equipamentos
+  - Unidades Assistenciais
+
+---
+
+## ⚙️ Funcionalidades
+
+- Login e logout
+- CRUD de usuários
+- CRUD de permissões
+- Atribuição de roles e permissões
+- Uso do Spatie Laravel Permission para controle de acesso baseado em roles e permissions
+- Proteção de rotas via middleware `role` e `permission`
+- Bloqueio de rotas para usuários não autorizados
+
+---
+
+## 🧱 Banco de dados
+
+O projeto utiliza migrations e seeders.
+
+### Usuário administrador padrão:
+
+- Email: admin@santacasa.org.br  
+- Senha: password
+
+---
+
+## 🧠 Decisões técnicas
+
+- Optei por Laravel Breeze para autenticação por ser uma solução leve, 
+  bem integrada ao Laravel e adequada ao escopo do projeto.
+- Utilizei Spatie Laravel Permission para gerenciar roles e permissions, 
+  evitando reimplementar um sistema de RBAC do zero e aproveitando uma 
+  solução testada pela comunidade.
+- O controle de acesso às rotas foi implementado via middleware, 
+  garantindo que o bloqueio ocorra mesmo em tentativas de acesso direto 
+  pela URL, e não apenas na ocultação de menus.
+- Reforcei a validação para impedir que o perfil Administrador receba 
+  permissões de módulos operacionais, garantindo consistência mesmo 
+  que a regra não estivesse explicitamente restrita na tela de atribuição.
+
+---
+
+## 🤔 Suposições assumidas
+
+- Interpretei "gerenciamento de permissões" como a atribuição das 
+  permissões de módulo já existentes a cada usuário, e não como CRUD 
+  livre de criação de novas permissões arbitrárias, já que os módulos 
+  do sistema são fixos.
+
+---
+
+
+## 📌 Observação
+
+O sistema foi desenvolvido priorizando clareza, separação de responsabilidades e aplicação prática de controle de acesso baseado em roles e permissões.
+
+---
+
+
+## 📦 Instalação
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repo-url>
+cd santa-casa-teste
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Configuração do banco de dados
 
-## Contributing
+Edite o arquivo `.env` com as credenciais do seu banco:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+DB_DATABASE=santa_casa_teste
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Code of Conduct
+### Migrations e Seeders
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan migrate --seed
+```
 
-## Security Vulnerabilities
+### Build dos assets e execução
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm run dev
+php artisan serve
+```
 
-## License
+Acesse: `http://127.0.0.1:8000`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

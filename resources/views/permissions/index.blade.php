@@ -1,69 +1,76 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Permissões</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <h2>Permissões</h2>
+        <a href="/dashboard" class="btn btn-secondary mb-3">
+            ⬅ Voltar ao Dashboard
+        </a>
 
-    <a href="{{ url('/permissoes/create') }}" class="btn btn-primary mb-3">
-        Nova Permissão
-    </a>
+        <h2>Permissões</h2>
 
-    <table class="table table-bordered bg-white">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
+        <a href="{{ url('/permissoes/create') }}" class="btn btn-primary mb-3">
+            Nova Permissão
+        </a>
 
-        <tbody>
+        <table class="table table-bordered bg-white">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
 
-        @foreach ($permissions as $permission)
+            <tbody>
 
-            <tr>
+                @foreach ($permissions as $permission)
 
-                <td>{{ $permission->id }}</td>
+                <tr>
 
-                <td>{{ $permission->name }}</td>
+                    <td>{{ $permission->id }}</td>
 
-                <td>
+                    <td>{{ $permission->name }}</td>
 
-                    <a href="{{ url('/permissoes/'.$permission->id.'/edit') }}"
-                       class="btn btn-warning btn-sm">
-                        Editar
-                    </a>
+                    <td>
 
-                    <form action="{{ url('/permissoes/'.$permission->id) }}"
-                          method="POST"
-                          style="display:inline;">
+                        <a href="{{ url('/permissoes/'.$permission->id.'/edit') }}"
+                            class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
 
-                        @csrf
-                        @method('DELETE')
+                        <form action="{{ url('/permissoes/'.$permission->id) }}"
+                            method="POST"
+                            style="display:inline;">
 
-                        <button class="btn btn-danger btn-sm">
-                            Excluir
-                        </button>
+                            @csrf
+                            @method('DELETE')
 
-                    </form>
+                            <button class="btn btn-danger btn-sm">
+                                Excluir
+                            </button>
 
-                </td>
+                        </form>
 
-            </tr>
+                    </td>
 
-        @endforeach
+                </tr>
 
-        </tbody>
+                @endforeach
 
-    </table>
+            </tbody>
 
-</div>
+        </table>
+
+    </div>
 
 </body>
+
 </html>

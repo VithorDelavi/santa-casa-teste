@@ -30,15 +30,17 @@
 
         <div class="mb-3">
             <label>Perfil</label>
-            <select name="role" class="form-control" required>
+            <select name="role" class="form-control" id="role-select" required>
                 @foreach($roles as $role)
                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                 @endforeach
             </select>
         </div>
-        <div class="mb-3">
+
+        <div class="mb-3" id="permissions-box">
             <label>Permissões</label>
 
+            
             @foreach($permissions as $permission)
 
                 <div class="form-check">
@@ -66,6 +68,24 @@
     </form>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const roleSelect = document.getElementById('role-select');
+    const permissionsBox = document.getElementById('permissions-box');
+
+    function togglePermissions() {
+        if (roleSelect.value === 'Administrador') {
+            permissionsBox.style.display = 'none';
+        } else {
+            permissionsBox.style.display = 'block';
+        }
+    }
+
+    roleSelect.addEventListener('change', togglePermissions);
+    togglePermissions();
+});
+</script>
 
 </body>
 </html>

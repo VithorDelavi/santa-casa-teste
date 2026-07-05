@@ -29,8 +29,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'role' => 'required',
-            'permissions' => 'nullable|array'
+            'role' => 'required'
         ]);
 
         $user = User::create([
@@ -41,7 +40,11 @@ class UserController extends Controller
 
         $user->assignRole($request->role);
 
-        $user->syncPermissions($request->permissions ?? []);
+        if ($request->role === 'Administrador') {
+            $user->syncPermissions([]); // limpa permissões
+        } else {
+            $user->syncPermissions($request->permissions ?? []);
+        }
 
         return redirect('/usuarios');
     }
@@ -69,8 +72,8 @@ class UserController extends Controller
 
         if ($request->password) {
             $usuario->update([
-            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
-          ]);
+                'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            ]);
         }
 
         $usuario->syncRoles([$request->role]);

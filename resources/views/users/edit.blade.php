@@ -42,30 +42,40 @@
         </div>
 
         <div class="mb-3">
-    <label>Permissões</label>
+            <label>Permissões</label>
 
-    @foreach($permissions as $permission)
+            @if($usuario->hasRole('Administrador'))
 
-        <div class="form-check">
+                <div class="alert alert-info">
+                    Administrador não possui permissões de módulos operacionais.
+                </div>
 
-            <input
-                class="form-check-input"
-                type="checkbox"
-                name="permissions[]"
-                value="{{ $permission->name }}"
-                id="perm{{ $permission->id }}"
-                {{ $usuario->hasPermissionTo($permission->name) ? 'checked' : '' }}
-            >
+            @else
 
-            <label class="form-check-label" for="perm{{ $permission->id }}">
-                {{ $permission->name }}
-            </label>
+                @foreach($permissions as $permission)
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name="permissions[]"
+                            value="{{ $permission->name }}"
+                            id="perm{{ $permission->id }}"
+                            {{ $usuario->hasPermissionTo($permission->name) ? 'checked' : '' }}
+                        >
+
+                        <label class="form-check-label" for="perm{{ $permission->id }}">
+                            {{ $permission->name }}
+                        </label>
+
+                    </div>
+
+                @endforeach
+
+            @endif
 
         </div>
-
-    @endforeach
-
-</div>
 
         <button class="btn btn-success">Atualizar</button>
         <a href="{{ url('/usuarios') }}" class="btn btn-secondary">Voltar</a>

@@ -12,9 +12,47 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        Menu
                     </x-nav-link>
+
+                    {{-- ADMIN --}}
+                    @if(auth()->user()->hasRole('Administrador'))
+                    <x-nav-link href="/usuarios" :active="request()->is('usuarios*')">
+                        Usuários
+                    </x-nav-link>
+
+                    <x-nav-link href="/permissoes" :active="request()->is('permissoes*')">
+                        Permissões
+                    </x-nav-link>
+                    @endif
+
+                    {{-- COLABORADOR (OU ADMIN NÃO USA AQUI) --}}
+                    @if(auth()->user()->hasRole('Colaborador') || auth()->user()->can('acessar setores hospitalares'))
+                    <x-nav-link href="/setores-hospitalares" :active="request()->is('setores-hospitalares*')">
+                        Setores
+                    </x-nav-link>
+                    @endif
+
+                    @if(auth()->user()->hasRole('Colaborador') || auth()->user()->can('acessar especialidades médicas'))
+                    <x-nav-link href="/especialidades-medicas" :active="request()->is('especialidades-medicas*')">
+                        Especialidades
+                    </x-nav-link>
+                    @endif
+
+                    @if(auth()->user()->hasRole('Colaborador') || auth()->user()->can('acessar equipamentos'))
+                    <x-nav-link href="/equipamentos" :active="request()->is('equipamentos*')">
+                        Equipamentos
+                    </x-nav-link>
+                    @endif
+
+                    @if(auth()->user()->hasRole('Colaborador') || auth()->user()->can('acessar unidades assistenciais'))
+                    <x-nav-link href="/unidades-assistenciais" :active="request()->is('unidades-assistenciais*')">
+                        Unidades
+                    </x-nav-link>
+                    @endif
+
                 </div>
             </div>
 
@@ -43,7 +81,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -70,6 +108,54 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            {{-- ADMIN --}}
+            @if(auth()->user()->hasRole('Administrador'))
+
+            <x-responsive-nav-link href="/usuarios">
+                Usuários
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="/permissoes">
+                Permissões
+            </x-responsive-nav-link>
+
+            @endif
+
+            {{-- COLABORADOR / PERMISSÕES --}}
+            @if(auth()->user()->hasRole('Colaborador') || auth()->user()->can('acessar setores hospitalares'))
+
+            <x-responsive-nav-link href="/setores-hospitalares">
+                Setores Hospitalares
+            </x-responsive-nav-link>
+
+            @endif
+
+            @if(auth()->user()->hasRole('Colaborador') || auth()->user()->can('acessar especialidades médicas'))
+
+            <x-responsive-nav-link href="/especialidades-medicas">
+                Especialidades Médicas
+            </x-responsive-nav-link>
+
+            @endif
+
+            @if(auth()->user()->hasRole('Colaborador') || auth()->user()->can('acessar equipamentos'))
+
+            <x-responsive-nav-link href="/equipamentos">
+                Equipamentos
+            </x-responsive-nav-link>
+
+            @endif
+
+            @if(auth()->user()->hasRole('Colaborador') || auth()->user()->can('acessar unidades assistenciais'))
+
+            <x-responsive-nav-link href="/unidades-assistenciais">
+                Unidades Assistenciais
+            </x-responsive-nav-link>
+
+            @endif
+
+
         </div>
 
         <!-- Responsive Settings Options -->
@@ -89,7 +175,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
