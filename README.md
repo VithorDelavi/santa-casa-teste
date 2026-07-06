@@ -18,6 +18,9 @@ O sistema permite o gerenciamento de usuários e controle de acesso baseado em p
 - Spatie Laravel Permission
 - Laragon
 
+Ambiente de desenvolvimento:
+- Laragon
+- VS Code
 ---
 
 ## Autenticação
