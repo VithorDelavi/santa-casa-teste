@@ -10,7 +10,7 @@ O sistema permite o gerenciamento de usuários e controle de acesso baseado em p
 
 ## Tecnologias utilizadas
 
-- Laravel 12
+- Laravel 13
 - PHP 8.3
 - MySQL
 - Bootstrap 5
