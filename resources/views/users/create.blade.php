@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Novo Usuário</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <h2>Novo Usuário</h2>
+        <h2>Novo Usuário</h2>
 
-    <form method="POST" action="{{ url('/usuarios') }}">
-        @csrf
+        <form method="POST" action="{{ url('/usuarios') }}">
+            @csrf
 
-        <div class="mb-3">
-            <label>Nome</label>
-            <input type="text" name="name" class="form-control" required>
-        </div>
+            <div class="mb-3">
+                <label>Nome</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
 
-        <div class="mb-3">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" required>
-        </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
 
-        <div class="mb-3">
-            <label>Senha</label>
-            <input type="password" name="password" class="form-control" required>
-        </div>
+            <div class="mb-3">
+                <label>Senha</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
 
-        <div class="mb-3">
-            <label>Perfil</label>
-            <select name="role" class="form-control" id="role-select" required>
-                @foreach($roles as $role)
+            <div class="mb-3">
+                <label>Perfil</label>
+                <select name="role" class="form-control" id="role-select" required>
+                    @foreach($roles as $role)
                     <option value="{{ $role->name }}">{{ $role->name }}</option>
-                @endforeach
-            </select>
-        </div>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="mb-3" id="permissions-box">
-            <label>Permissões</label>
+            <div class="mb-3" id="permissions-box">
+                <label>Permissões</label>
 
-            
-            @foreach($permissions as $permission)
 
+                @foreach($permissions as $permission)
                 <div class="form-check">
 
                     <input
@@ -57,35 +58,35 @@
                     </label>
 
                 </div>
+                @endforeach
 
-            @endforeach
+            </div>
 
-        </div>
+            <button class="btn btn-success">Salvar</button>
+            <a href="{{ url('/usuarios') }}" class="btn btn-secondary">Voltar</a>
 
-        <button class="btn btn-success">Salvar</button>
-        <a href="{{ url('/usuarios') }}" class="btn btn-secondary">Voltar</a>
+        </form>
 
-    </form>
+    </div>
 
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role-select');
+            const permissionsBox = document.getElementById('permissions-box');
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const roleSelect = document.getElementById('role-select');
-    const permissionsBox = document.getElementById('permissions-box');
+            function togglePermissions() {
+                if (roleSelect.value === 'Administrador') {
+                    permissionsBox.style.display = 'none';
+                } else {
+                    permissionsBox.style.display = 'block';
+                }
+            }
 
-    function togglePermissions() {
-        if (roleSelect.value === 'Administrador') {
-            permissionsBox.style.display = 'none';
-        } else {
-            permissionsBox.style.display = 'block';
-        }
-    }
-
-    roleSelect.addEventListener('change', togglePermissions);
-    togglePermissions();
-});
-</script>
+            roleSelect.addEventListener('change', togglePermissions);
+            togglePermissions();
+        });
+    </script>
 
 </body>
+
 </html>

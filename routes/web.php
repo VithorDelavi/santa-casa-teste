@@ -19,14 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//rota teste
-/*
-Route::middleware(['auth', 'role:Administrador'])->group(function () {
-    Route::get('/usuarios', function () {
-        return "Área ADMIN - Usuários";
-    });
-});
-*/
 Route::middleware(['auth', 'role:Administrador'])->group(function () {
     Route::resource('/usuarios', UserController::class); //CRUD usuarios
     Route::resource('permissoes', PermissionController::class)

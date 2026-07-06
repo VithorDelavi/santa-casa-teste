@@ -41,7 +41,7 @@ class UserController extends Controller
         $user->assignRole($request->role);
 
         if ($request->role === 'Administrador') {
-            $user->syncPermissions([]); // limpa permissões
+            $user->syncPermissions([]); 
         } else {
             $user->syncPermissions($request->permissions ?? []);
         }

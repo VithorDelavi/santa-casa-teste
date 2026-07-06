@@ -2,13 +2,13 @@
 
 Este projeto foi desenvolvido como teste prático para vaga de Desenvolvedor de Sistemas Júnior (Laravel).
 
-## 📌 Descrição
+## Descrição
 
 O sistema permite o gerenciamento de usuários e controle de acesso baseado em perfis e permissões, centralizando a administração de acessos aos módulos internos da instituição.
 
 ---
 
-## 🚀 Tecnologias utilizadas
+## Tecnologias utilizadas
 
 - Laravel 12
 - PHP 8.3
@@ -20,13 +20,13 @@ O sistema permite o gerenciamento de usuários e controle de acesso baseado em p
 
 ---
 
-## 🔐 Autenticação
+## Autenticação
 
 O sistema utiliza autenticação padrão do Laravel Breeze com e-mail e senha.
 
 ---
 
-## 👤 Perfis de usuário
+## Perfis de usuário
 
 ### Administrador
 - Gerencia usuários
@@ -42,7 +42,7 @@ O sistema utiliza autenticação padrão do Laravel Breeze com e-mail e senha.
 
 ---
 
-## ⚙️ Funcionalidades
+## Funcionalidades
 
 - Login e logout
 - CRUD de usuários
@@ -54,7 +54,7 @@ O sistema utiliza autenticação padrão do Laravel Breeze com e-mail e senha.
 
 ---
 
-## 🧱 Banco de dados
+## Banco de dados
 
 O projeto utiliza migrations e seeders.
 
@@ -65,7 +65,7 @@ O projeto utiliza migrations e seeders.
 
 ---
 
-## 🧠 Decisões técnicas
+## Decisões técnicas
 
 - Optei por Laravel Breeze para autenticação por ser uma solução leve, 
   bem integrada ao Laravel e adequada ao escopo do projeto.
@@ -81,7 +81,7 @@ O projeto utiliza migrations e seeders.
 
 ---
 
-## 🤔 Suposições assumidas
+## Suposições assumidas
 
 - Interpretei "gerenciamento de permissões" como a atribuição das 
   permissões de módulo já existentes a cada usuário, e não como CRUD 
@@ -91,14 +91,14 @@ O projeto utiliza migrations e seeders.
 ---
 
 
-## 📌 Observação
+## Observação
 
 O sistema foi desenvolvido priorizando clareza, separação de responsabilidades e aplicação prática de controle de acesso baseado em roles e permissões.
 
 ---
 
 
-## 📦 Instalação
+## Instalação
 
 ```bash
 git clone <repo-url>
@@ -132,5 +132,5 @@ npm run dev
 php artisan serve
 ```
 
-Acesse: `http://127.0.0.1:8000`
+Acesse: `http://127.0.0.1:8000` ou a url exibida no seu terminal: php artisan serve
 
